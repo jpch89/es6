@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>var-let-const</title>
+</head>
+<body>
+    <script>
+        // var 声明的变量可以重新赋值和定义
+        var price = 100;
+        // 重新赋值
+        price = 200;
+        console.log(price);  // 200
+        // 重复声明不会报错
+        var price;
+        console.log(price);  // 200
+
+        // var 声明的变量属于 function scope
+        // 如果变量是在函数中定义的，只能在函数中使用，函数外面访问不到
+        function getPrice2() {
+            var price2 = 666;
+            console.log(price2);
+        }
+        getPrice2();  // 666
+        // 下面会报错：Uncaught ReferenceError: price2 is not defined
+        // console.log(price2);
+
+        var count = 10;
+        if (count > 5) {
+            // 注意：discount 是全局变量
+            var discount = price * .6;
+            console.log(`The discount is ${discount}`);
+            // The discount is 120
+        }
+
+        // const 和 let 定义的变量属于块级作用域 block scope
+        // 大括号就是一个块级作用域
+        if (count > 5) {
+            let discount2 = price * .5;
+            console.log(`The discount2 is ${discount2}`);
+            // The discount2 is 100
+
+            const discount3 = price * .1;
+            console.log(`The discount3 is ${discount3}`);
+            // The discount3 is 20
+        }
+        // 下面会报错：Uncaught ReferenceError: 变量名 is not defined
+        // 因为 discount2 和 discount3 是块级作用域
+        // console.log(discount2);
+        // console.log(discount3);
+    </script>
+</body>
+</html>

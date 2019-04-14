@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>let const use cases</title>
+</head>
+<body>
+    <script>
+        // 1. 用 let 和 const 代替立即执行函数
+        // IIFE：Immediately Invoked Function Expression
+        // 立即执行函数的应用场景之一是生成一个私有变量
+        // 在立即执行函数中使用 var 声明的变量不会污染全局作用域
+
+        // window 对象有一个 name 属性
+        // console.log(window.name);  // 一个空字符串
+        // var name = "jelly";
+        // console.log(window.name);  // jelly
+        // 可见 name 覆盖了 window 对象的 name 属性
+
+        // 通过立即执行函数让 name 私有化
+        // 注：个人觉得这里说局部化比较好
+        (function () {
+            var name = "bean";
+        })();
+        console.log(window.name);  // 一个空字符串
+
+        // 为了让一个变量私有化而写了一个函数，影响代码可读性
+        // 用大括号形成块级作用域，配合 let 和 const 可以简单地让一个变量私有化
+        {
+            const name = "bean";
+        }
+        console.log(name);  // 一个空字符串
+
+
+        // 2. let 配合 for 循环使用
+        // 注意：不能用 const，因为它声明的变量不能重新赋值
+        for (var i = 0; i < 10; i++) {
+            console.log(i);  // 输出 0...9
+            setTimeout(function () {
+                console.log(`i: ${i}`);  // 输出 10 个 i: 10
+            }, 1000);
+        }
+
+        for (let j = 0; j < 10; j++) {
+            console.log(j);  // 输出 0...9
+            setTimeout(function () {
+                console.log(`j: ${j}`);  // 输出 j: 0...9
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
